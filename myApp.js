@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 app.get('/json', (req, res) => {
     const messageStyle = process.env.MESSAGE_STYLE
 
-    const resObj = {"message": "Hello json"};
+    const resObj = { "message": "Hello json" };
 
     if (messageStyle === "uppercase") {
         resObj.message = resObj.message.toUpperCase();
@@ -37,12 +37,17 @@ app.get('/now', (req, res, next) => {
     req.time = new Date().toString();
     next();
 }, (req, res) => {
-    res.json({"time": req.time});
+    res.json({ "time": req.time });
 });
 
 app.get('/:word/echo', (req, res) => {
     const { word } = req.params;
-    res.json({"echo": word});
+    res.json({ "echo": word });
 })
 
+app.route('/name')
+.get((req, res) => {
+    const { first, last } = req.query;
+    res.json({ "name": `${first} ${last}` });
+});
 module.exports = app;
